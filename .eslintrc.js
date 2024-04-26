@@ -21,6 +21,7 @@ module.exports = {
   },
   rules: {
     'no-unused-vars': 'error',
+    'prefer-destructuring': 'off',
     semi: ['error', 'always'],
     '@typescript-eslint/semi': ['error', 'always'],
     indent: ['error', 2],

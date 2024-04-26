@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import config from '.';
 
 export const databaseService = new DataSource({
-  type: 'mysql',
+  type: 'postgres',
   host: config.db.host,
   port: +config.db.port,
   username: config.db.user,

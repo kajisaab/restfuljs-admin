@@ -1,4 +1,4 @@
-import { ClientError } from '@core/middleware/errorHandler/clientError';
+import { BadRequestException } from '@core/middleware/errorHandler/BadRequestException';
 import type { Request, Response, NextFunction } from 'express';
 import type Joi from 'joi';
 
@@ -12,7 +12,7 @@ export const validate = (schema: Joi.ObjectSchema) => {
       const message = details
         .map((i) => i.message.replace(/"/g, ''))
         .join(' & ');
-      next(new ClientError(message, 'Bad Request'));
+      next(new BadRequestException(message, 'Bad Request'));
     }
   };
 };

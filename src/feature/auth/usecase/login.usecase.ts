@@ -1,15 +1,15 @@
-import { ClientError } from '@core/middleware/errorHandler/clientError';
+import { BadRequestException } from '@core/middleware/errorHandler/BadRequestException';
 import type { Request, Response, NextFunction } from 'express';
 import { type LoginResponseDto } from '../response/loginResponseDto.dto';
 import { Result } from '@core/middleware/ResponseHandler/Result';
 import executeQuery from '@common/executeQuery';
 import { type LoginRequestDto } from '../request/loginReuqestDto.dto';
-import * as bcrypt from 'bcrypt';
 import { type loginFindUserDbQueryResonseDto } from '../dto/dbResponseDto.dto';
 import { createToken } from '@core/auth/JwtStrategy';
 import config from '@config/index';
 import { type JwtConfigurationInterface } from 'utils/jwtConfigInterface.interface';
 import AppLogger from '@core/logger';
+import { comparePassword } from '@core/hashing/hashing';
 
 async function LoginUsecase(
   req: Request,
@@ -20,30 +20,34 @@ async function LoginUsecase(
   try {
     const body: LoginRequestDto = req.body;
 
-    const query = `SELECT ud.id, ud.email, concat(ud.first_name, ' ', ud.last_name) as 'fullName', \n
+    const query = `SELECT ud.id, ud.email, concat(ud.first_name, ' ', ud.last_name) as "fullName", \n
     ud.phone_number, ud.role, ud.user_name, \n
     ud.user_type, uc.login_attempts, uc.max_login_attempts, \n
-    uc.password FROM user_details ud LEFT JOIN user_credential \n
+    uc.password FROM ecommerce.user_details ud LEFT JOIN ecommerce.user_credential \n
     uc on ud.id = uc.user_id where ud.email = '${body.email}'`;
 
-    const result: loginFindUserDbQueryResonseDto = await executeQuery(query);
+    const result: loginFindUserDbQueryResonseDto[] = await executeQuery(query);
 
     if (result === null || Object.keys(result).length === 0) {
-      throw new ClientError(
+      throw new BadRequestException(
         `Sorry! cannot find user with ${body.email} email. `
       );
     }
 
-    const isPasswordCorrect = await bcrypt.compare(
+    const isPasswordCorrect = await comparePassword(
       body.password,
-      result.password
+      result[0].password,
+      `${result[0].fullName}`,
+      result[0].userName
     );
 
     if (!isPasswordCorrect) {
-      throw new ClientError("Sorry, password doesn't match. Please try again");
+      throw new BadRequestException(
+        "Sorry, password doesn't match. Please try again"
+      );
     }
 
-    const { id, email, fullName, role, userType } = result;
+    const { id, email, fullName, role, userType } = result[0];
     const tokenPayload = {
       id,
       email,
@@ -64,8 +68,8 @@ async function LoginUsecase(
       fullName,
       role,
       userType,
-      userName: result.userName,
-      phoneNumber: result.phoneNumber,
+      userName: result[0].userName,
+      phoneNumber: result[0].phoneNumber,
       accessToken,
       refreshToken
     };

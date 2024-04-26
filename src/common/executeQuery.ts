@@ -11,7 +11,7 @@ const executeQuery = async (sqlQuery: string): Promise<any> => {
       await databaseService.manager.query<RowDataPacket[]>(sqlQuery);
 
     if (Array.isArray(results) && results.length < 2) {
-      return snakeToCamel(results[0] as Record<string, any>);
+      return results.map((data: Record<string, any>) => snakeToCamel(data));
     }
     if (!Array.isArray(results)) {
       return snakeToCamel(results);

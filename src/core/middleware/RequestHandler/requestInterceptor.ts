@@ -56,8 +56,8 @@ function requestInterceptor(req: any, res: Response, next: NextFunction): void {
           // Check if the user exists or not with the userId inside the token
           await executeQuery(`SELECT EXISTS (SELECT 1 FROM ecommerce.user_details 
             WHERE id = '${parsedAccessToken.userId}') AS user_exists`).then(
-            ({ userExists }) => {
-              if (userExists === '0') {
+            ({ userExists }: { userExists: boolean }) => {
+              if (!userExists) {
                 throw new UnauthorizedError('Token invalid or expired');
               }
               req.user = parsedAccessToken;
