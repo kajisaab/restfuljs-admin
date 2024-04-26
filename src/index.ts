@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+import { StatusCode } from '@common/statucCodeEnum';
+import { databaseService } from '@config/db.config';
 import swaggerDocs from '@config/swagger';
 import AppLogger from '@core/logger';
 import requestInterceptor from '@core/middleware/RequestHandler/requestInterceptor';
+import { responseInterceptor } from '@core/middleware/ResponseHandler/responseHandler';
+import errorHandler from '@core/middleware/errorHandler';
+import { CorsError } from '@core/middleware/errorHandler/corsError';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
@@ -9,13 +14,8 @@ import * as dotenv from 'dotenv';
 import express, { type Request, type Response } from 'express';
 import http from 'http';
 import 'module-alias/register';
-import config from './config';
-import { StatusCode } from '@common/statucCodeEnum';
-import { databaseService } from '@config/db.config';
 import routes from 'routes';
-import { responseInterceptor } from '@core/middleware/ResponseHandler/responseHandler';
-import errorHandler from '@core/middleware/errorHandler';
-import { CorsError } from '@core/middleware/errorHandler/corsError';
+import config from './config';
 
 const app = express();
 const logger = new AppLogger();
