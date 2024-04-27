@@ -138,7 +138,7 @@ export default {
                 description: 'Owner Last Name',
                 example: 'Khadka'
               },
-              ownerName: {
+              userName: {
                 type: 'string',
                 description: 'Owner User Name',
                 example: 'kaji__saab'
