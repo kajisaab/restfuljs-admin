@@ -7,8 +7,6 @@ import { addVendorValidationSchema } from '../validationSchema/add-vendor.valida
 
 const router = Router();
 
-router.post(
-  '',
-  validate(addVendorValidationSchema),
-  asyncHandler(addVendorUsecase)
-);
+router.post('/onboard', validate(addVendorValidationSchema), asyncHandler(addVendorUsecase));
+
+export default router;

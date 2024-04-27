@@ -3,6 +3,7 @@
  * common definition schemas goes here.
  */
 import Authentication from '@feature/auth/docs';
+import Vendor from '@feature/vendor/docs';
 const commonDefinitions = {
   errorSchema: {
     type: 'object',
@@ -89,7 +90,8 @@ export default {
   components: {
     schemas: {
       ...commonDefinitions,
-      ...Authentication.schemas
+      ...Authentication.schemas,
+      ...Vendor.schemas
     },
     securitySchemes: {
       'X-XSRF-TOKEN': {

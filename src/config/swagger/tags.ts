@@ -8,6 +8,10 @@ export default {
     {
       name: 'auth',
       description: 'Auth Operations'
+    },
+    {
+      name: 'Vendor',
+      description: 'Vendor CRUD'
     }
   ]
 };
