@@ -1,12 +1,10 @@
 import type { Response, Request, NextFunction } from 'express';
 import { CustomError, type IResponseError } from './CustomError';
+import AppLogger from '@core/logger';
 
-function errorHandler(
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void {
+function errorHandler(err: any, req: Request, res: Response, next: NextFunction): void {
+  const logger = new AppLogger();
+  logger.error(JSON.stringify(err));
   if (!(err instanceof CustomError)) {
     const defaultErrorResponse: IResponseError = {
       code: '-1',

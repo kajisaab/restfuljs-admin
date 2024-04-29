@@ -5,11 +5,6 @@ export default {
       loginUserDetailRepsonse: {
         type: 'object',
         properties: {
-          id: {
-            type: 'string',
-            description: 'id',
-            example: '92bd78f6-da3d-42c2-8b98-ddc6d7334b1b'
-          },
           email: {
             type: 'string',
             description: 'email',
@@ -38,32 +33,23 @@ export default {
           userType: {
             type: 'string',
             description: 'userType',
-            example: 'customer'
+            example: 'Vendor'
           },
           accessToken: {
             type: 'string',
             description: 'accessToken',
-            example:
-              'alsdjflsjfslkfjsldkfjsldfjlsakdfjklsdjfklasjfklasjflajslfjiruwpiurwoieruwoiruowiueruoiwcniwuoisjdfsfsakfjlaskfjlaksfja'
+            example: 'alsdjflsjfslkfjsldkfjsldfjlsakdfjklsdjfklasjfklasjflajslfjiruwpiurwoieruwoiruowiueruoiwcniwuoisjdfsfsakfjlaskfjlaksfja'
           },
           refreshToken: {
             type: 'string',
             description: 'refreshToken',
-            example:
-              'alsdjflsjfslkfjsldkfjsldfjlsakdfjklsdjfklasjfklasjflajslfjiruwpiurwoieruwoiruowiueruoiwcniwuoisjdfsfsakfjlaskfjlaksfja'
+            example: 'alsdjflsjfslkfjsldkfjsldfjlsakdfjklsdjfklasjfklasjflajslfjiruwpiurwoieruwoiruowiueruoiwcniwuoisjdfsfsakfjlaskfjlaksfja'
           }
         }
       },
       signupUserDetailRequest: {
         type: 'object',
-        required: [
-          'email',
-          'firstName',
-          'lastName',
-          'password',
-          'userName',
-          'phoneNumber'
-        ],
+        required: ['email', 'firstName', 'lastName', 'password', 'userName', 'phoneNumber'],
         properties: {
           email: {
             type: 'string',
@@ -94,6 +80,51 @@ export default {
             type: 'string',
             description: 'phoneNumber',
             example: '1234567890'
+          },
+          country: {
+            type: 'string',
+            description: 'User Residing Country',
+            example: 'Nepal'
+          },
+          province: {
+            type: 'string',
+            description: 'User Residing province',
+            example: 'Bagmati'
+          },
+          state: {
+            type: 'string',
+            description: 'User Residing state',
+            example: 'Chitwan'
+          },
+          street: {
+            type: 'string',
+            description: 'User Street Name',
+            example: 'Janamarga'
+          },
+          wardNo: {
+            type: 'string',
+            description: 'User ward Number',
+            example: '01'
+          },
+          municipality: {
+            type: 'string',
+            description: 'User Municipality',
+            example: 'Ratnanagar'
+          },
+          ruralMunicipality: {
+            type: 'string',
+            description: 'User Rural Municipality',
+            example: ''
+          },
+          image: {
+            type: 'string',
+            description: 'User Image',
+            example: '/aksdf/sdfsa/newImage.jpeg'
+          },
+          zipCode: {
+            type: 'string',
+            description: 'User location zip code',
+            example: '123123'
           }
         }
       },

@@ -2,10 +2,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 // Helper function to parse numeric environment variables safely
-function parseNumericEnv(
-  value: string | undefined,
-  defaultValue: number
-): number {
+function parseNumericEnv(value: string | undefined, defaultValue: number): number {
   if (value === undefined) {
     return defaultValue;
   }
@@ -38,7 +35,11 @@ const config: Record<string, any> = {
     port: process.env.DB_PORT ?? '', // Provide empty string if null or undefined
     retryCount: 5
   },
-  javaEndpoint: process.env.JAVA_ENDPOINT ?? '' // Provide empty string if null or undefined
+  javaEndpoint: process.env.JAVA_ENDPOINT ?? '', // Provide empty string if null or undefined
+  s3: {
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY
+  }
 };
 
 export default config;

@@ -6,7 +6,6 @@ async function addVendorUsecase(req: Request, res: Response, next: NextFunction)
   const logger = new AppLogger();
   try {
     const body: any = req.body;
-    console.log({ body });
 
     return Result.createSuccess('Successfully onboarded vendor');
   } catch (err) {

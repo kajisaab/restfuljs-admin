@@ -1,5 +1,4 @@
 export interface LoginResponseDto {
-  id: string;
   email: string;
   fullName: string;
   phoneNumber: string;

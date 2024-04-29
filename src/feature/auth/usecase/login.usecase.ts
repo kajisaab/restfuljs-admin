@@ -10,6 +10,8 @@ import config from '@config/index';
 import { type JwtConfigurationInterface } from 'utils/jwtConfigInterface.interface';
 import AppLogger from '@core/logger';
 import { comparePassword } from '@core/hashing/hashing';
+import { UserType } from 'shared/enum/userType.constant';
+import { UserRole } from 'shared/enum/userRole.constant';
 
 async function LoginUsecase(req: Request, res: Response, next: NextFunction): Promise<Result<LoginResponseDto>> {
   const logger = new AppLogger();
@@ -44,11 +46,10 @@ async function LoginUsecase(req: Request, res: Response, next: NextFunction): Pr
     await executeQuery(`UPDATE ecommerce.user_details SET refresh_token = '${refreshToken}' WHERE id = '${id}'`);
 
     const response: LoginResponseDto = {
-      id,
       email,
       fullName,
-      role,
-      userType,
+      role: UserRole.getByName(role)?.displayName,
+      userType: UserType.getByName(userType)?.displayName,
       userName: result[0].userName,
       phoneNumber: result[0].phoneNumber,
       accessToken,

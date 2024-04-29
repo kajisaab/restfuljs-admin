@@ -7,8 +7,7 @@ import AppLogger from '@core/logger';
 const executeQuery = async (sqlQuery: string): Promise<any> => {
   const logger = new AppLogger();
   try {
-    const results: Array<Record<string, any>> | Record<string, any> =
-      await databaseService.manager.query<RowDataPacket[]>(sqlQuery);
+    const results: Array<Record<string, any>> | Record<string, any> = await databaseService.manager.query<RowDataPacket[]>(sqlQuery);
 
     if (Array.isArray(results) && results.length < 2) {
       return results.map((data: Record<string, any>) => snakeToCamel(data));
