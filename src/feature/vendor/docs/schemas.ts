@@ -7,30 +7,12 @@ export default {
         properties: {
           vendor: {
             type: 'object',
-            required: [
-              'businessName',
-              'businessContactDetail',
-              'country',
-              'province',
-              'state',
-              'street',
-              'wardNo',
-              'image',
-              'vendorType',
-              'accountHolderName',
-              'accountNumber',
-              'bankName'
-            ],
+            required: ['businessName', 'country', 'province', 'state', 'street', 'wardNo', 'image', 'vendorType', 'accountHolderName', 'accountNumber', 'bankName'],
             properties: {
               businessName: {
                 type: 'string',
                 description: 'Registered Business Name',
                 example: 'Auto Rental Chitwan'
-              },
-              businessContactDetail: {
-                type: 'string',
-                description: 'Business Contact Detail',
-                example: '98458xxxxx'
               },
               country: {
                 type: 'string',
@@ -65,19 +47,19 @@ export default {
               ruralMunicipality: {
                 type: 'string',
                 description: 'On which rural municipality is business registered',
-                example: null
+                example: ''
               },
               image: {
                 type: 'string',
-                description: 'etag or objectid of image of the business',
+                description: 'path of image of the business',
                 example: '1233-123123-12kljk123'
               },
-              vendorContactDetail: {
+              contactNo: {
                 type: 'string',
                 description: 'Vendor Contact Detail',
-                example: '98458xxxxx'
+                example: '9845811111'
               },
-              vendorEmail: {
+              email: {
                 type: 'string',
                 description: 'Vendor Email Address',
                 example: 'abc@gmail.com'
@@ -126,7 +108,7 @@ export default {
           },
           owner: {
             type: 'object',
-            required: ['firstName', 'lastName', 'contactNumber', 'country', 'province', 'state'],
+            required: ['firstName', 'lastName', 'contactNumber', 'email', 'country', 'province', 'state'],
             properties: {
               firstName: {
                 type: 'string',
@@ -143,10 +125,10 @@ export default {
                 description: 'Owner User Name',
                 example: 'kaji__saab'
               },
-              contactNumber: {
+              contactNo: {
                 type: 'string',
                 description: 'Owner Contact Number',
-                example: '98458xxxxx'
+                example: '9845811111'
               },
               country: {
                 type: 'string',
@@ -171,7 +153,7 @@ export default {
               ruralMunicipality: {
                 type: 'string',
                 description: 'Owner Rural Municipality',
-                example: null
+                example: ''
               },
               wardNo: {
                 type: 'string',
@@ -187,6 +169,11 @@ export default {
                 type: 'string',
                 description: 'Owner Address ZipCode',
                 example: '12312'
+              },
+              image: {
+                type: 'string',
+                description: 'path of image of the owner',
+                example: '1233-123123-12kljk123'
               }
             }
           }
@@ -199,6 +186,70 @@ export default {
             type: 'string',
             description: 'message',
             example: 'Successfully Onboarded Vendor'
+          }
+        }
+      },
+      vendorTableListResponse: {
+        type: 'object',
+        properties: {
+          businessName: {
+            type: 'string',
+            example: 'Auto Rental Chitwan'
+          },
+          province: {
+            type: 'string',
+            example: 'Bagmati'
+          },
+          state: {
+            type: 'string',
+            example: 'Chitwan'
+          },
+          municipality: {
+            type: 'string',
+            example: 'Ratnanagar'
+          },
+          ruralMunicipality: {
+            type: 'string',
+            example: ''
+          },
+          image: {
+            type: 'string',
+            example: '1233-123123-12kljk123'
+          },
+          contactNo: {
+            type: 'string',
+            example: '9845811111'
+          },
+          email: {
+            type: 'string',
+            example: 'abc@gmail.com'
+          },
+          vendorType: {
+            type: 'string',
+            example: 'Service Provider'
+          }
+        }
+      },
+      vendorTableListRequest: {
+        type: 'object',
+        properties: {
+          filters: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                vendorStatus: {
+                  type: 'string',
+                  description: 'define the vendor status as active pending or deactivate',
+                  example: 'ALL'
+                }
+              }
+            }
+          },
+          searchText: {
+            type: 'string',
+            description: 'Search text',
+            example: ''
           }
         }
       }

@@ -14,4 +14,7 @@ export interface SignupRequestDto {
   ruralMunicipality: string;
   image: string;
   zipCode: string;
+  userRole?: string;
+  userType?: string;
+  user_is_active: string;
 }

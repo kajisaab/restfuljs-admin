@@ -1,6 +1,6 @@
 import { BadRequestException } from '@core/middleware/errorHandler/BadRequestException';
 import type { Request, Response, NextFunction } from 'express';
-import { type LoginResponseDto } from '../response/loginResponseDto.dto';
+import { LoginResponse } from '../response/loginResponse.response';
 import { Result } from '@core/middleware/ResponseHandler/Result';
 import executeQuery from '@common/executeQuery';
 import { type LoginRequestDto } from '../request/loginReuqestDto.dto';
@@ -12,6 +12,7 @@ import AppLogger from '@core/logger';
 import { comparePassword } from '@core/hashing/hashing';
 import { UserType } from 'shared/enum/userType.constant';
 import { UserRole } from 'shared/enum/userRole.constant';
+import type { LoginResponseDto } from '../dto/loginResponse.dto';
 
 async function LoginUsecase(req: Request, res: Response, next: NextFunction): Promise<Result<LoginResponseDto>> {
   const logger = new AppLogger();
@@ -45,7 +46,7 @@ async function LoginUsecase(req: Request, res: Response, next: NextFunction): Pr
 
     await executeQuery(`UPDATE ecommerce.user_details SET refresh_token = '${refreshToken}' WHERE id = '${id}'`);
 
-    const response: LoginResponseDto = {
+    const responseStruct: LoginResponseDto = {
       email,
       fullName,
       role: UserRole.getByName(role)?.displayName,
@@ -55,6 +56,8 @@ async function LoginUsecase(req: Request, res: Response, next: NextFunction): Pr
       accessToken,
       refreshToken
     };
+
+    const response = new LoginResponse(responseStruct).data;
 
     return Result.createSuccess(response);
   } catch (err) {

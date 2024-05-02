@@ -25,7 +25,7 @@ export default {
               password: {
                 type: 'string',
                 description: 'password',
-                example: 'TEST@1234'
+                example: 'Test@123'
               }
             }
           }
@@ -52,19 +52,6 @@ export default {
                   type: 'object',
                   $ref: '#/components/schemas/authenticationSchema/properties/loginUserDetailRepsonse'
                 }
-                // example for the list of the object to define
-                //  data: {
-                //   type: 'object',
-                //   properties: {
-                //     list: {
-                //       type: 'array',
-                //       items: {
-                //         type: 'object',
-                //         $ref: '#/components/schemas/authenticationSchema/properties/loginUserDetailRepsonse'
-                //       }
-                //     }
-                //   }
-                // }
               }
             }
           }

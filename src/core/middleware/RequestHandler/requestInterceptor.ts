@@ -17,9 +17,7 @@ function requestInterceptor(req: any, res: Response, next: NextFunction): void {
     }
   }
 
-  const isExcludedRoute = PublicRoutes.some((route: string) =>
-    req.originalUrl.includes(route)
-  );
+  const isExcludedRoute = PublicRoutes.some((route: string) => req.originalUrl.includes(route));
 
   if (isExcludedRoute) {
     next();
@@ -27,8 +25,7 @@ function requestInterceptor(req: any, res: Response, next: NextFunction): void {
   }
 
   // here validate the api for the token;
-  const token: string =
-    req.cookies?.accessToken ?? (req.headers['x-xsrf-token'] as string);
+  const token: string = req.cookies?.accessToken ?? (req.headers['x-xsrf-token'] as string);
 
   if (token === null || token === '' || token === undefined) {
     throw new UnauthorizedError('Token not provided');
@@ -36,36 +33,29 @@ function requestInterceptor(req: any, res: Response, next: NextFunction): void {
 
   parseToken(token, 'access')
     .then(async (parsedAccessToken) => {
-      await parseToken(token, 'refresh').then(
-        async (parsedRefreshToken: JwtPayload) => {
-          if (
-            parsedRefreshToken?.exp === null ||
-            parsedRefreshToken?.exp === undefined
-          ) {
-            throw new UnauthorizedError('Cannot read the token');
-          }
-
-          // Get the current timestamp (in seconds)
-          const currentTimestamp = Math.floor(Date.now() / 1000);
-
-          // Compare the current timestamp with the expiration timestamp
-          if (currentTimestamp >= parsedRefreshToken?.exp) {
-            throw new UnauthorizedError('Token invalid or expired');
-          }
-
-          // Check if the user exists or not with the userId inside the token
-          await executeQuery(`SELECT EXISTS (SELECT 1 FROM ecommerce.user_details 
-            WHERE id = '${parsedAccessToken.userId}') AS user_exists`).then(
-            ({ userExists }: { userExists: boolean }) => {
-              if (!userExists) {
-                throw new UnauthorizedError('Token invalid or expired');
-              }
-              req.user = parsedAccessToken;
-              next();
-            }
-          );
+      await parseToken(token, 'refresh').then(async (parsedRefreshToken: JwtPayload) => {
+        if (parsedRefreshToken?.exp === null || parsedRefreshToken?.exp === undefined) {
+          throw new UnauthorizedError('Cannot read the token');
         }
-      );
+
+        // Get the current timestamp (in seconds)
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+
+        // Compare the current timestamp with the expiration timestamp
+        if (currentTimestamp >= parsedRefreshToken?.exp) {
+          throw new UnauthorizedError('Token invalid or expired');
+        }
+
+        // Check if the user exists or not with the userId inside the token
+        const response = await executeQuery(`SELECT EXISTS (SELECT 1 FROM ecommerce.user_details 
+             WHERE id = '${parsedAccessToken.userId}') AS user_exists`);
+
+        if (!response[0].userExists) {
+          throw new UnauthorizedError('Token Invalid or expired');
+        }
+        req.user = parsedAccessToken;
+        next();
+      });
     })
     .catch((err) => {
       next(err);

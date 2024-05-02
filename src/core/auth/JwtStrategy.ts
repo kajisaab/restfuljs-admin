@@ -2,11 +2,7 @@ import { UnauthorizedError } from '@core/middleware/errorHandler/unauthorizedErr
 import * as jwt from 'jsonwebtoken';
 import { type JwtConfigurationInterface } from 'utils/jwtConfigInterface.interface';
 
-export function createToken(
-  payload: string | object | Buffer,
-  jwtConfig: JwtConfigurationInterface,
-  audience: string
-): string {
+export function createToken(payload: string | object | Buffer, jwtConfig: JwtConfigurationInterface, audience: string): string {
   return jwt.sign(payload, jwtConfig.secret, {
     algorithm: 'HS256',
     expiresIn: jwtConfig.expiresIn,
@@ -15,10 +11,7 @@ export function createToken(
   });
 }
 
-export async function verifyToken(
-  token: string,
-  jwtConfig: JwtConfigurationInterface
-): Promise<jwt.JwtPayload> {
+export async function verifyToken(token: string, jwtConfig: JwtConfigurationInterface): Promise<jwt.JwtPayload> {
   return await new Promise<jwt.JwtPayload>((resolve, reject) => {
     jwt.verify(
       token,

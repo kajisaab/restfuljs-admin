@@ -5,39 +5,34 @@ import config from '@config/index';
 import { type JwtTokenUserDetail } from 'utils/jwtConfigInterface.interface';
 import { type JwtPayload } from 'jsonwebtoken';
 
-export async function parseToken(
-  token: string,
-  tokenType: string
-): Promise<JwtTokenUserDetail | JwtPayload> {
+export async function parseToken(token: string, tokenType: string): Promise<JwtTokenUserDetail | JwtPayload> {
   if (token === '' || token.length === 0) {
     throw new UnauthorizedError('Sorry token not provided');
   }
   try {
     const decodedToken: JwtPayload = decodeToken(token);
-    const configKey = tokenType + 'Jwt';
-
-    await verifyToken(token, config[configKey]);
 
     if (tokenType === 'access') {
+      const configKey = tokenType + 'Jwt';
+      await verifyToken(token, config[configKey]);
+
       const currentUser: JwtTokenUserDetail = {
         aud: (decodedToken?.aud as string) ?? '',
-        userId: decodedToken?.userId ?? '',
-        fullName: decodedToken?.firstName ?? '',
+        userId: decodedToken?.id ?? '',
+        fullName: `${decodedToken?.firstName} ${decodedToken?.lastName}` ?? '',
         refreshToken: decodedToken?.refreshToken ?? ''
       };
 
       return currentUser;
     }
-    return decodeToken;
+
+    return decodedToken;
   } catch (err) {
     throw new UnauthorizedError('Token expired or invalid');
   }
 }
 
-export async function updateToken(
-  token: string,
-  tokenType: string
-): Promise<string> {
+export async function updateToken(token: string, tokenType: string): Promise<string> {
   if (token === '' || token.length === 0) {
     throw new UnauthorizedError('Sorry, Token not provided');
   }
