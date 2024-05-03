@@ -1,4 +1,5 @@
 export interface VendorDetails {
+  id?: string;
   businessName: string;
   country: string;
   province: string;

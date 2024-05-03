@@ -192,6 +192,10 @@ export default {
       vendorTableListResponse: {
         type: 'object',
         properties: {
+          id: {
+            type: 'string',
+            example: '1231-123123-123-13123123'
+          },
           businessName: {
             type: 'string',
             example: 'Auto Rental Chitwan'
@@ -258,6 +262,110 @@ export default {
             type: 'string',
             description: 'Search text',
             example: ''
+          }
+        }
+      },
+      vendorDetailResponse: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            example: '12312-123123-12321-123123'
+          },
+          businessName: {
+            type: 'string',
+            description: 'Registered Business Name',
+            example: 'Auto Rental Chitwan'
+          },
+          country: {
+            type: 'string',
+            description: 'Country Name',
+            example: 'Nepal'
+          },
+          province: {
+            type: 'string',
+            description: 'Province where business is registered',
+            example: 'Bagmati'
+          },
+          state: {
+            type: 'string',
+            description: 'State where the business is registered',
+            example: 'Chitwan'
+          },
+          street: {
+            type: 'string',
+            description: 'Street Name where the business is located',
+            example: 'Jana Marga'
+          },
+          wardNo: {
+            type: 'string',
+            description: 'On which ward is business registered',
+            example: '10'
+          },
+          municipality: {
+            type: 'string',
+            description: 'On which municipality is business registered',
+            example: 'Ratnanagar'
+          },
+          ruralMunicipality: {
+            type: 'string',
+            description: 'On which rural municipality is business registered',
+            example: ''
+          },
+          image: {
+            type: 'string',
+            description: 'path of image of the business',
+            example: '1233-123123-12kljk123'
+          },
+          contactNo: {
+            type: 'string',
+            description: 'Vendor Contact Detail',
+            example: '9845811111'
+          },
+          email: {
+            type: 'string',
+            description: 'Vendor Email Address',
+            example: 'abc@gmail.com'
+          },
+          vendorType: {
+            type: 'string',
+            description: 'Vendor Type as SERVICE_PROVIDER | PRODUCT_SELLER | PRODUCT_SERVICE_PROVIDER',
+            example: 'SERVICE_PROVIDER'
+          },
+          zipCode: {
+            type: 'string',
+            description: 'Zip Code of the Business Location',
+            example: '12323'
+          },
+          facebookUrl: {
+            type: 'string',
+            description: 'Facebook Page Url',
+            example: 'https//www.facebook.com/amankajikhadka'
+          },
+          instagramUrl: {
+            type: 'string',
+            description: 'Instagram Page Url',
+            example: 'https//www.instagram.com/amankhadka'
+          },
+          twitterUrl: {
+            type: 'string',
+            description: 'Twitter Page Url',
+            example: 'https://www.twitter.com/amankhadka'
+          },
+          accountHolderName: {
+            type: 'string',
+            description: 'Bank Account Holder Name',
+            example: 'Aman Khadka'
+          },
+          accountNumber: {
+            type: 'string',
+            description: 'Bank Account Number',
+            example: '12312213123123123'
+          },
+          bankName: {
+            type: 'string',
+            description: 'Bank Name',
+            example: 'Himalayan Bank LTD.'
           }
         }
       }

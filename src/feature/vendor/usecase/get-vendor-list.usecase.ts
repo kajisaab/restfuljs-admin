@@ -1,14 +1,12 @@
-import AppLogger from '@core/logger';
-import type { Request, Response, NextFunction } from 'express';
-import { GetVendorListRequest } from '../request/get-vendor-list.request';
 import executeQuery from '@common/executeQuery';
-import { databaseService } from '@config/db.config';
-import { getConnection } from 'typeorm';
+import AppLogger from '@core/logger';
+import { Result } from '@core/middleware/ResponseHandler/Result';
+import type { NextFunction, Request, Response } from 'express';
+import { StatusEnum } from 'shared/enum/statusEnum.constant';
 import { VendorType } from 'shared/enum/vendorType.constant';
 import { VendorListDto } from '../dto/get-vendor-list.dto';
-import { StatusEnum } from 'shared/enum/statusEnum.constant';
+import { GetVendorListRequest } from '../request/get-vendor-list.request';
 import { GetVendorListResponse } from '../response/get-vendor-list.response';
-import { Result } from '@core/middleware/ResponseHandler/Result';
 
 async function getVendorListUsecase(req: Request, res: Response, next: NextFunction): Promise<Result<GetVendorListResponse>> {
   const logger = new AppLogger();
@@ -23,6 +21,7 @@ async function getVendorListUsecase(req: Request, res: Response, next: NextFunct
 
     const query = `
       SELECT
+      id,
       business_name, province, state,
       municipality,
         CASE WHEN rural_municipality = '{}' THEN NULL ELSE rural_municipality END AS rural_municipality,
@@ -43,8 +42,9 @@ async function getVendorListUsecase(req: Request, res: Response, next: NextFunct
         OR municipality ILIKE '${searchText || ''}%' 
         OR rural_municipality ILIKE '${searchText || ''}%'
       )
+      order by created_at desc
       OFFSET ${skip}
-      LIMIT ${pageSize};
+      LIMIT ${pageSize} ;
     `;
 
     const dbresults = await executeQuery(query);

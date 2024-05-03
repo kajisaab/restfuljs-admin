@@ -1,4 +1,5 @@
 export interface VendorListDto {
+  id: string;
   businessName: string;
   country: string;
   province: string;
