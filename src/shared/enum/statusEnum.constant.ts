@@ -1,16 +1,16 @@
 import { EnumType } from './enumType.constant';
 
-export class Status extends EnumType<Status> {
-  public static readonly PENDING = new Status('PENDING', 'Pending');
-  public static readonly ACTIVE = new Status('ACTIVE', 'Active');
-  public static readonly DEACTIVATE = new Status('DEACTIVATE', 'Deactivate');
+export class StatusEnum extends EnumType<StatusEnum> {
+  public static readonly PENDING = new StatusEnum('PENDING', 'Pending');
+  public static readonly ACTIVE = new StatusEnum('ACTIVE', 'Active');
+  public static readonly DEACTIVATE = new StatusEnum('DEACTIVATE', 'Deactivate');
 
   constructor(public readonly name: string, public readonly displayName: string) {
     super(name);
     this.displayName = displayName;
   }
 
-  public static getValues(): Status[] {
+  public static getValues(): StatusEnum[] {
     return [this.PENDING, this.ACTIVE, this.DEACTIVATE];
   }
 

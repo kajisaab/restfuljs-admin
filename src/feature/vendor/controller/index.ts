@@ -10,6 +10,6 @@ const router = Router();
 
 router.post('/onboard', validate(addVendorValidationSchema), asyncHandler(addVendorUsecase));
 
-router.get('/list', asyncHandler(getVendorListUsecase));
+router.post('/list', asyncHandler(getVendorListUsecase));
 
 export default router;

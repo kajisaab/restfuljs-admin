@@ -196,6 +196,10 @@ export default {
             type: 'string',
             example: 'Auto Rental Chitwan'
           },
+          country: {
+            type: 'string',
+            example: 'Nepal'
+          },
           province: {
             type: 'string',
             example: 'Bagmati'
@@ -203,6 +207,10 @@ export default {
           state: {
             type: 'string',
             example: 'Chitwan'
+          },
+          status: {
+            type: 'string',
+            example: 'Pending'
           },
           municipality: {
             type: 'string',

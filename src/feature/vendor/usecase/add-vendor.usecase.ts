@@ -8,7 +8,7 @@ import { Result } from '@core/middleware/ResponseHandler/Result';
 import { SignupRequestDto } from '@feature/auth/request/SignupRequestDto.dto';
 import { getUserInsertQuery } from '@feature/auth/usecase/signup.usecase';
 import type { NextFunction, Request, Response } from 'express';
-import { Status } from 'shared/enum/status.constant';
+import { StatusEnum } from 'shared/enum/statusEnum.constant';
 import { VendorType } from 'shared/enum/vendorType.constant';
 import { AddVendorValidationSchema } from '../request/add-vendor.request';
 import { UserType } from 'shared/enum/userType.constant';
@@ -39,7 +39,7 @@ async function addVendorUsecase(req: Request, res: Response, next: NextFunction)
       municipality, ward_no, rural_municipality, zip_code) VALUES ('${vendor_id}', '${new Date().toISOString()}', '${vendor.businessName}', '${vendor.contactNo}', '${
       vendor.image
     }',
-    '${Status.PENDING.name}', '${VendorType.PRODUCT_SELLER.name}', '${vendor.email}', '${vendor.country}', '${vendor.province}', '${vendor.state}', '${vendor.street}', 
+    '${StatusEnum.PENDING.name}', '${VendorType.PRODUCT_SELLER.name}', '${vendor.email}', '${vendor.country}', '${vendor.province}', '${vendor.state}', '${vendor.street}', 
     ${vendor.municipality ? `'${vendor.municipality}'` : null}, '${vendor.wardNo}', ${vendor.ruralMunicipality ? `'${vendor.ruralMunicipality}'` : null}, '${vendor.zipCode}'
     )`;
 

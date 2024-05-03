@@ -46,9 +46,22 @@ export default {
         content: {
           'application/json': {
             schema: {
-              type: 'array',
-              items: {
-                $ref: '#/components/schemas/vendorSchema/properties/vendorTableListResponse'
+              type: 'object',
+              properties: {
+                code: {
+                  type: 'string',
+                  example: '0'
+                },
+                message: {
+                  type: 'string',
+                  example: 'SUCCESS'
+                },
+                data: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/vendorSchema/properties/vendorTableListResponse'
+                  }
+                }
               }
             }
           }
