@@ -270,12 +270,37 @@ export default {
         properties: {
           id: {
             type: 'string',
-            example: '12312-123123-12321-123123'
+            example: '35af11ff-0e1d-47f2-bf20-a90e08567916'
+          },
+          contactNo: {
+            type: 'string',
+            description: 'Registered Contact Number',
+            example: '9845811111'
+          },
+          image: {
+            type: 'string',
+            description: 'Vendor Image',
+            example: 'http://aws.kajisaab.com/asjk/234kloj-sadfj'
+          },
+          status: {
+            type: 'string',
+            description: 'Vendor Onboarding status',
+            example: 'Pending'
           },
           businessName: {
             type: 'string',
             description: 'Registered Business Name',
             example: 'Auto Rental Chitwan'
+          },
+          vendorType: {
+            type: 'string',
+            description: 'Vendor Type as SERVICE_PROVIDER | PRODUCT_SELLER | PRODUCT_SERVICE_PROVIDER',
+            example: 'SERVICE_PROVIDER'
+          },
+          email: {
+            type: 'string',
+            description: 'Vendor Email Address',
+            example: 'abc@gmail.com'
           },
           country: {
             type: 'string',
@@ -297,40 +322,20 @@ export default {
             description: 'Street Name where the business is located',
             example: 'Jana Marga'
           },
-          wardNo: {
-            type: 'string',
-            description: 'On which ward is business registered',
-            example: '10'
-          },
           municipality: {
             type: 'string',
             description: 'On which municipality is business registered',
             example: 'Ratnanagar'
           },
+          wardNo: {
+            type: 'string',
+            description: 'On which ward is business registered',
+            example: '10'
+          },
           ruralMunicipality: {
             type: 'string',
             description: 'On which rural municipality is business registered',
             example: ''
-          },
-          image: {
-            type: 'string',
-            description: 'path of image of the business',
-            example: '1233-123123-12kljk123'
-          },
-          contactNo: {
-            type: 'string',
-            description: 'Vendor Contact Detail',
-            example: '9845811111'
-          },
-          email: {
-            type: 'string',
-            description: 'Vendor Email Address',
-            example: 'abc@gmail.com'
-          },
-          vendorType: {
-            type: 'string',
-            description: 'Vendor Type as SERVICE_PROVIDER | PRODUCT_SELLER | PRODUCT_SERVICE_PROVIDER',
-            example: 'SERVICE_PROVIDER'
           },
           zipCode: {
             type: 'string',
